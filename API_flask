@@ -1,0 +1,39 @@
+from flask import Flask, jsonify, request
+
+app = Flask(__name__)
+
+users = [
+    {"id":1, "name": "amit"},
+    {"id":2, "name": "riya"},
+]
+@app.route("/")
+def home():
+    return jsonify({"message": "Flask API is running"})
+
+
+@app.route("/users", methods=["GET"])
+def get_user():
+    
+    return jsonify({
+        "data": users
+    }), 200
+
+
+@app.route("/users",methods=["POST"])
+def create_user():
+    data = request.get_json()
+
+    next_id = users[-1]["id"]+1
+    new_user ={
+        "id" : next_id,
+        "name" : data["name"]
+    }
+    users.append(new_user)
+
+    return jsonify({
+        "message":"User created successfully",
+        "data" : new_user
+    }),201
+
+if __name__ == "__main__":
+    app.run(debug=True)
