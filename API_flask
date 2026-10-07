@@ -35,5 +35,13 @@ def create_user():
         "data" : new_user
     }),201
 
+@app.route("/user/<int:user_id>", method=["PUT"])
+def update_user(user_id):
+    if not data:
+        return jsonify({"error":"Request body is required"}),400
+    if "name" not in data:
+        return jsonify({"error":"Name is required"}),400
+    
+
 if __name__ == "__main__":
     app.run(debug=True)
