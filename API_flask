@@ -31,9 +31,9 @@ def create_user():
 
     name = data.get("name")
 
-    if not isinstance(name, str) or not name.strip():
+    if not isinstance(name, str) or not name.strip() or  name.strip().isdigit():
         return jsonify({
-            "error": "Name must be a non-empty string"
+            "error": "Name must be a non-empty string and must contain letters"
         }), 400
 
     next_id = max(
@@ -89,7 +89,25 @@ def delete_user(user_id):
         "message": "User deleted successfully"
     }), 200
 
+
+@app.route("/users/<int:user_id>", methods=["GET"])
+def get_single_user(user_id):
+    user = next(
+        (user for user in users if user["id"] == user_id),
+        None
+    )
+
+    if user is None:
+        return jsonify({
+            "error": "User not found"
+        }), 404
+
+    return jsonify({
+        "data": user
+    }), 200
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 
-    
+     
