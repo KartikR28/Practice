@@ -106,6 +106,7 @@ def get_single_user(user_id):
         "data": user
     }), 200
 
+#upadating the api 
 
 if __name__ == "__main__":
     app.run(debug=True)
