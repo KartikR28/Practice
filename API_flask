@@ -108,7 +108,6 @@ def get_single_user(user_id):
 
 #upadating the api 
 
+
 if __name__ == "__main__":
     app.run(debug=True)
-
-     
