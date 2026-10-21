@@ -53,24 +53,24 @@ def create_user():
         "data": new_user
     }), 201
 
-@app.route("/users/<int:user_id>", methods=["PUT"])
-def update_user(user_id):
-    data = request.get_json()
-    if not data:
-        return jsonify({"error":"Request body is required"}),400
-    if "name" not in data:
-        return jsonify({"error":"Name is required"}),400
+# @app.route("/users/<int:user_id>", methods=["PUT"])
+# def update_user(user_id):
+#     data = request.get_json()
+#     if not data:
+#         return jsonify({"error":"Request body is required"}),400
+#     if "name" not in data:
+#         return jsonify({"error":"Name is required"}),400
 
-    user = next((user for user in users if user["id"] == user_id),None)
+#     user = next((user for user in users if user["id"] == user_id),None)
 
-    if user is None:
-        return jsonify({"error": "User not found"}), 404
-    user["name"] = data["name"]
+#     if user is None:
+#         return jsonify({"error": "User not found"}), 404
+#     user["name"] = data["name"]
 
-    return jsonify({
-        "message": "User updated successfully",
-        "data": user
-    }),200
+#     return jsonify({
+#         "message": "User updated successfully",
+#         "data": user
+#     }),200
 
 
 @app.route("/users/<int:user_id>", methods=["DELETE"])
@@ -106,7 +106,51 @@ def get_single_user(user_id):
         "data": user
     }), 200
 
-#upadating the api 
+
+
+@app.route("/users/<int:user_id>", methods=["PUT"])
+def update_user(user_id):
+    data = request.get_json(silent=True)
+
+    # 1. Validate the request body
+    if not isinstance(data, dict):
+        return jsonify({
+            "error": "Request body must be a JSON object"
+        }), 400
+
+    # 2. Validate the name
+    name = data.get("name")
+
+    if (
+        not isinstance(name, str)
+        or not name.strip()
+        or name.strip().isdigit()
+    ):
+        return jsonify({
+            "error": "Name must be a non-empty string containing letters"
+        }), 400
+
+    # 3. Find the user
+    user = next(
+        (user for user in users if user["id"] == user_id),
+        None
+    )
+
+    # 4. Check whether the user exists
+    if user is None:
+        return jsonify({
+            "error": "User not found"
+        }), 404
+
+    # 5. Update the user
+    user["name"] = name.strip()
+
+    # 6. Return the response
+    return jsonify({
+        "message": "User updated successfully",
+        "data": user
+    }), 200
+
 
 
 if __name__ == "__main__":
