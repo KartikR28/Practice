@@ -9,3 +9,4 @@ for i in list:
     high_val = i
 
 print(sec_high_val)
+# printed the 2nd high val
