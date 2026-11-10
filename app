@@ -53,24 +53,7 @@ def create_user():
         "data": new_user
     }), 201
 
-# @app.route("/users/<int:user_id>", methods=["PUT"])
-# def update_user(user_id):
-#     data = request.get_json()
-#     if not data:
-#         return jsonify({"error":"Request body is required"}),400
-#     if "name" not in data:
-#         return jsonify({"error":"Name is required"}),400
 
-#     user = next((user for user in users if user["id"] == user_id),None)
-
-#     if user is None:
-#         return jsonify({"error": "User not found"}), 404
-#     user["name"] = data["name"]
-
-#     return jsonify({
-#         "message": "User updated successfully",
-#         "data": user
-#     }),200
 
 
 @app.route("/users/<int:user_id>", methods=["DELETE"])
