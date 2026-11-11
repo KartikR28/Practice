@@ -1,3 +1,12 @@
+# TODO (plan for tomorrow - Lesson 1 remaining tasks):
+# 1. Rename this file to "app.py" (it has no .py extension yet)
+# 2. Create helper find_user(user_id) and use it in GET, PUT, DELETE
+# 3. Create helper validate_name(name) and use it in POST, PUT
+#    - reject names with no letters, e.g. "!!!" -> any(c.isalpha() for c in name)
+# 4. Add JSON error handlers for 404, 405 and 500 (@app.errorhandler)
+# 5. Test with Postman/curl: name "!!!", missing user, PATCH /users/1 (expect 405)
+# 6. Answer interview questions: 400 vs 401 vs 403 vs 404, PUT vs PATCH, what is a decorator
+
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
