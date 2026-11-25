@@ -8,3 +8,10 @@ venv/
 
 # Local environment variables / secrets
 .env
+
+# Tutor notes for Claude (kept local, not pushed)
+CLAUDE.md
+PROGRESS.md
+
+# Local database files
+*.db
